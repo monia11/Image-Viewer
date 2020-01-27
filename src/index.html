@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Photos</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="init_box">
+      <h1 id="info">Upload your images!</h1>
+
+      <form id="input_form">
+        <input
+          type="file"
+          accept="image/*"
+          id="uploaded_images"
+          multiple="multiple"
+          name="Start"
+        />
+      </form>
+    </div>
+
+    <div class="list">
+      <ul id="images_list"></ul>
+    </div>
+
+    <div class="frame">
+      <image id="photo" />
+    </div>
+    <p class="buttons">
+      <button id="rotate_anticlock">⟲</button>
+      <button id="rotate_clock">⟳</button>
+    </p>
+  </body>
+</html>
