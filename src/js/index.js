@@ -42,11 +42,16 @@ var displayList = () => {
 
 var displayImage = cur => {
   document.getElementById(`${i}`).addEventListener('click', () => {
-    elements.init_box.style.display = 'none';
+    elements.initBox.style.display = 'none';
     elements.frame.style.display = 'block';
     elements.buttons.style.display = 'block';
-    elements.photo.src = URL.createObjectURL(files.uploadedFiles[cur]);
+    renderImage(cur);
+    i = cur;
   });
+};
+
+var renderImage = cur => {
+  elements.photo.src = URL.createObjectURL(files.uploadedFiles[cur]);
 };
 
 var rotateImage = w => {
@@ -61,7 +66,21 @@ var rotateImage = w => {
   elements.frame.style.transform = `rotate(${angle}deg)`;
 };
 
+var changeImage = w => {
+  if (w == 'n' && i < files.countFiles - 1) {
+    i++;
+  } else if (w == 'p' && i > 0) {
+    i--;
+  } else {
+    i = i;
+  }
+  renderImage(i);
+};
 elements.rotateAnticlock.addEventListener('click', () =>
   rotateImage('anticlock')
 );
 elements.rotateClock.addEventListener('click', () => rotateImage('clock'));
+
+elements.previous.addEventListener('click', () => changeImage('p'));
+
+elements.next.addEventListener('click', () => changeImage('n'));

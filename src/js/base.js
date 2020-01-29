@@ -9,5 +9,7 @@ export const elements = {
   buttons: document.querySelector('.buttons'),
   rotateAnticlock: document.getElementById('rotate_anticlock'),
   rotateClock: document.getElementById('rotate_clock'),
-  init_box: document.querySelector('.init_box')
+  initBox: document.querySelector('.init_box'),
+  previous: document.getElementById('previous'),
+  next: document.getElementById('next')
 };
