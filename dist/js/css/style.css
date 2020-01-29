@@ -27,14 +27,15 @@ h1 {
   position: absolute;
   left: 20%;
   top: 5%;
+  align-items: center;
 }
 
 #photo {
   padding-left: 5%;
   padding-top: 5%;
   padding-bottom: 5%;
-  width: 90%;
-  height: 90%;
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .list {
