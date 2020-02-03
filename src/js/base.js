@@ -3,6 +3,7 @@ export const elements = {
   list: document.querySelector('.list'),
   imagesList: document.getElementById('images_list'),
   photo: document.getElementById('photo'),
+  defaultPhoto: document.querySelector('.default_photo'),
   files: document.getElementById('files'),
   info: document.getElementById('info'),
   frame: document.querySelector('.frame'),

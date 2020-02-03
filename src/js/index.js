@@ -56,14 +56,17 @@ var renderImage = cur => {
 
 var rotateImage = w => {
   numClick++;
-  elements.frame.classList.toggle('rotate_frame');
+ 
+  
   var angle;
   if (w == 'anticlock') {
     angle = numClick * 270;
   } else if (w == 'clock') {
     angle = numClick * -270;
   }
-  elements.frame.style.transform = `rotate(${angle}deg)`;
+  elements.photo.style.transform = `rotate(${angle}deg)`;
+  
+  elements.photo.classList.toggle('rotate_image');
 };
 
 var changeImage = w => {
