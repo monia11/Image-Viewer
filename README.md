@@ -4,7 +4,7 @@
 Simple image viewer created with JavaScript.
 
 #### Demo
- [SeeFrame](https://http://monia11.github.io/Image-Viewer/dist/)
+ [SeeFrame](https://monia11.github.io/Image-Viewer/dist/)
 ## Installation
 ##### 1. Clone the repository
 
