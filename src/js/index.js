@@ -3,6 +3,7 @@ import { elements } from './base';
 var i = 0;
 var files;
 var numClick = 0;
+const renderedImages = [];
 
 function Files(uploadedFiles) {
   this.uploadedFiles = uploadedFiles;
@@ -16,12 +17,10 @@ document
 var uploadImages = event => {
   files = new Files(event.target.files);
 
-  elements.info.textContent = 'Choose an image!';
   elements.uploadForm.style.display = 'none';
   elements.list.style.display = 'block';
-
   displayList();
-
+  elements.info.textContent = 'Choose an image!';
   return files;
 };
 
@@ -41,7 +40,19 @@ var displayList = () => {
 };
 
 var displayImage = cur => {
-  document.getElementById(`${i}`).addEventListener('click', () => {
+  document.getElementById(`${cur}`).addEventListener('click', () => {
+    renderedImages.push(cur);
+    document.getElementById(`${cur}`).style.borderRadius = '25px';
+
+    if (
+      renderedImages.length > 1 &&
+      renderedImages[renderedImages.length - 2] !==
+        renderedImages[renderedImages.length - 1]
+    ) {
+      document.getElementById(
+        `${renderedImages[renderedImages.length - 2]}`
+      ).style.borderRadius = '0px';
+    }
     elements.initBox.style.display = 'none';
     elements.frame.style.display = 'block';
     elements.buttons.style.display = 'block';
@@ -56,8 +67,7 @@ var renderImage = cur => {
 
 var rotateImage = w => {
   numClick++;
- 
-  
+
   var angle;
   if (w == 'anticlock') {
     angle = numClick * 270;
@@ -65,7 +75,7 @@ var rotateImage = w => {
     angle = numClick * -270;
   }
   elements.photo.style.transform = `rotate(${angle}deg)`;
-  
+
   elements.photo.classList.toggle('rotate_image');
 };
 
