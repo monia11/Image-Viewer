@@ -41,18 +41,7 @@ var displayList = () => {
 
 var displayImage = cur => {
   document.getElementById(`${cur}`).addEventListener('click', () => {
-    renderedImages.push(cur);
-    document.getElementById(`${cur}`).style.borderRadius = '25px';
-
-    if (
-      renderedImages.length > 1 &&
-      renderedImages[renderedImages.length - 2] !==
-        renderedImages[renderedImages.length - 1]
-    ) {
-      document.getElementById(
-        `${renderedImages[renderedImages.length - 2]}`
-      ).style.borderRadius = '0px';
-    }
+    chosenImage(cur);
     elements.initBox.style.display = 'none';
     elements.frame.style.display = 'block';
     elements.buttons.style.display = 'block';
@@ -61,6 +50,20 @@ var displayImage = cur => {
   });
 };
 
+const chosenImage = cur => {
+  renderedImages.push(cur);
+  document.getElementById(`${cur}`).style.borderRadius = '25px';
+
+  if (
+    renderedImages.length > 1 &&
+    renderedImages[renderedImages.length - 2] !==
+      renderedImages[renderedImages.length - 1]
+  ) {
+    document.getElementById(
+      `${renderedImages[renderedImages.length - 2]}`
+    ).style.borderRadius = '0px';
+  }
+};
 var renderImage = cur => {
   elements.photo.src = URL.createObjectURL(files.uploadedFiles[cur]);
 };
@@ -88,6 +91,7 @@ var changeImage = w => {
     i = i;
   }
   renderImage(i);
+  chosenImage(i);
 };
 elements.rotateAnticlock.addEventListener('click', () =>
   rotateImage('anticlock')
