@@ -12,5 +12,7 @@ export const elements = {
   rotateClock: document.getElementById('rotate_clock'),
   initBox: document.querySelector('.init_box'),
   previous: document.getElementById('previous'),
-  next: document.getElementById('next')
+  next: document.getElementById('next'),
+  defaultBtn: document.getElementById('default'),
+  uploadedImages: document.getElementById('uploaded_images')
 };
