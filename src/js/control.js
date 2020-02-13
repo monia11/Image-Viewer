@@ -1,116 +1,115 @@
 import { elements } from './base';
 
-export const renderedImages = [];
-export let numClick = 0;
+const state = {
+  renderedImages: [],
+  rotations: 0,
+  currentImg: 0,
+  uploadedFiles: {},
+  defaultSource: false
+};
 
-export let i = 0;
+export const uploadImages = event => {
+  state.uploadedFiles = event.target.files;
+  state.countFiles = state.uploadedFiles.length;
+  console.log(state);
+  changeInitBox();
+  displayList(srcUpload, state.countFiles);
+};
 
-export let files;
-export const chosenImage = cur => {
-  renderedImages.push(cur);
-  document.getElementById(`${cur}`).style.borderRadius = '25px';
-
-  if (
-    renderedImages.length > 1 &&
-    renderedImages[renderedImages.length - 2] !==
-      renderedImages[renderedImages.length - 1]
-  ) {
-    document.getElementById(
-      `${renderedImages[renderedImages.length - 2]}`
-    ).style.borderRadius = '0px';
-  }
+export const showDefault = () => {
+  state.defaultSource = true;
+  console.log(state);
+  changeInitBox();
+  displayList(srcDefault, 20);
 };
 
 export const rotateImage = w => {
-  numClick++;
-
-  var angle;
+  state.rotations++;
+  console.log(state);
+  let angle;
   if (w == 'anticlock') {
-    angle = numClick * 270;
+    angle = state.rotations * 270;
   } else if (w == 'clock') {
-    angle = numClick * -270;
+    angle = state.rotations * -270;
   }
   elements.photo.style.transform = `rotate(${angle}deg)`;
 
   elements.photo.classList.toggle('rotate_image');
 };
 
-export const renderImage = cur => {
-  elements.photo.src = cur;
-};
-
 export const changeImage = w => {
-  if (files) {
-    counter(w, files.countFiles - 1);
-    renderImage(srcUpload(i));
+  const countFiles = state.uploadedFiles.length;
+  if (!state.defaultSource) {
+    counter(w, countFiles);
+    displayImage(state.currentImg, srcUpload);
   } else {
     counter(w, 20);
-    renderImage(srcDefault(i));
+    displayImage(state.currentImg, srcDefault);
   }
 
-  chosenImage(i);
+  chosenImage(state.currentImg);
 };
 
-export const srcDefault = i => {
-  let url = `https://picsum.photos/id/${i}/500/700`;
-  return url;
-};
-
-export const srcUpload = i => {
-  let src = URL.createObjectURL(files.uploadedFiles[i]);
-
-  return src;
-};
 const counter = (w, num) => {
-  if (w == 'n' && i < num) {
-    i++;
-  } else if (w == 'p' && i > 0) {
-    i--;
+  if (w == 'n' && state.currentImg < num - 1) {
+    state.currentImg++;
+  } else if (w == 'p' && state.currentImg > 0) {
+    state.currentImg--;
   } else {
-    i = i;
+    state.currentImg = state.currentImg;
   }
 };
 
-export function Files(uploadedFiles) {
-  this.uploadedFiles = uploadedFiles;
-  this.countFiles = this.uploadedFiles.length;
-}
-
-export const uploadImages = event => {
-  files = new Files(event.target.files);
+const changeInitBox = () => {
   elements.defaultBtn.style.display = 'none';
-
   elements.uploadForm.style.display = 'none';
   elements.list.style.display = 'block';
-  displayList();
   elements.info.textContent = 'Choose an image!';
-  return files;
 };
 
-export const displayList = () => {
-  for (i; i < files.countFiles; i++) {
+const displayList = (source, sourceLength) => {
+  for (let i = 0; i < sourceLength; i++) {
     var imageAdd = `
-    <li> <img class = "photo_list" id ="${i}"   /> </li>
+    <li> <img class = "photo_list" id ="${i}" src = "${source(i)}"/> </li>
     `;
     elements.imagesList.insertAdjacentHTML('beforeend', imageAdd);
-    document.getElementById(`${i}`).src = URL.createObjectURL(
-      files.uploadedFiles[i]
-    );
+    //document.getElementById(`${i}`).src = source(i);
     const currentID = i;
-
-    displayImage(currentID);
+    document
+      .getElementById(`${i}`)
+      .addEventListener('click', () => displayImage(currentID, source));
   }
 };
+const srcUpload = i => {
+  const url = URL.createObjectURL(state.uploadedFiles[i]);
+  return url;
+};
+const srcDefault = i => {
+  const url = `https://picsum.photos/id/${i}/500/700`;
+  return url;
+};
+const displayImage = (cur, source) => {
+  console.log(state);
+  chosenImage(cur);
+  elements.initBox.style.display = 'none';
+  elements.frame.style.display = 'block';
+  elements.buttons.style.display = 'block';
+  state.currentImg = cur;
+  elements.photo.src = source(cur);
+};
 
-export const displayImage = cur => {
-  document.getElementById(`${cur}`).addEventListener('click', () => {
-    chosenImage(cur);
-    elements.initBox.style.display = 'none';
-    elements.frame.style.display = 'block';
-    elements.buttons.style.display = 'block';
-    i = cur;
-    const src = URL.createObjectURL(files.uploadedFiles[cur]);
+const chosenImage = cur => {
+  state.renderedImages.push(cur);
+  document.getElementById(`${cur}`).style.borderRadius = '25px';
+  const rendImgLength = state.renderedImages.length;
 
-    renderImage(src);
-  });
+  if (
+    rendImgLength > 1 &&
+    state.renderedImages[rendImgLength - 2] !==
+      state.renderedImages[rendImgLength - 1]
+  ) {
+    document.getElementById(
+      `${state.renderedImages[rendImgLength - 2]}`
+    ).style.borderRadius = '0px';
+  }
 };
