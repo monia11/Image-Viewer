@@ -4,6 +4,8 @@ body {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('img/bg1.JPG');
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #fff;
 }
 
@@ -72,6 +74,7 @@ h1 {
   height: 50px;
   font-size: 24px;
   text-align: center;
+  border-radius: 10px;
 }
 
 #previous,
@@ -91,8 +94,12 @@ h1 {
 
 footer {
   position: absolute;
-  top: 3%;
-  right: 3%;
+  top: 1%;
+  right: 1%;
   font-family: 'Roboto Mono', monospace;
   font-size: 14px;
+}
+
+a:link {
+  text-decoration: none;
 }
