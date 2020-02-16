@@ -11,21 +11,21 @@ const state = {
 export const uploadImages = event => {
   state.uploadedFiles = event.target.files;
   state.countFiles = state.uploadedFiles.length;
-  console.log(state);
+
   changeInitBox();
   displayList(srcUpload, state.countFiles);
 };
 
 export const showDefault = () => {
   state.defaultSource = true;
-  console.log(state);
+
   changeInitBox();
   displayList(srcDefault, 20);
 };
 
 export const rotateImage = w => {
   state.rotations++;
-  console.log(state);
+
   let angle;
   if (w == 'anticlock') {
     angle = state.rotations * 270;
@@ -89,7 +89,6 @@ const srcDefault = i => {
   return url;
 };
 const displayImage = (cur, source) => {
-  console.log(state);
   chosenImage(cur);
   elements.initBox.style.display = 'none';
   elements.frame.style.display = 'block';
