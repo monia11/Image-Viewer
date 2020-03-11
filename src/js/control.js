@@ -73,7 +73,7 @@ const displayList = (source, sourceLength) => {
     <li> <img class = "photo_list" id ="${i}" src = "${source(i)}"/> </li>
     `;
     elements.imagesList.insertAdjacentHTML('beforeend', imageAdd);
-    //document.getElementById(`${i}`).src = source(i);
+   
     const currentID = i;
     document
       .getElementById(`${i}`)
