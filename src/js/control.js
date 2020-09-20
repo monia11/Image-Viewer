@@ -85,7 +85,9 @@ const srcUpload = i => {
   return url;
 };
 const srcDefault = i => {
-  const url = `https://picsum.photos/id/${i}/500/700`;
+  const randomPicture = i*Math.floor(Math.random()*10+1)+1;
+  console.log(randomPicture)
+  const url = `https://picsum.photos/id/${randomPicture}/500/700`;
   return url;
 };
 const displayImage = (cur, source) => {
